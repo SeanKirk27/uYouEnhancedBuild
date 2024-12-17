@@ -1,4 +1,5 @@
 #import "uYouPlus.h"
+#import "uYouPlusSettings.h" // needed for the YTAppDelegate and deprecation prompt
 
 //
 static int appVersionSpoofer() {
