@@ -60,7 +60,7 @@ NSBundle *tweakBundle = uYouPlusBundle();
         unselectedIcon.iconType = NOTIFICATIONS_NONE;
         
         [itemBar setIcon:selectedIcon];
-        [itemBar setUnselectedIcon:unselectedIcon];
+        [itemBar setIcon:unselectedIcon];
         
         [itemBar setNavigationEndpoint:command];
 
