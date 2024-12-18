@@ -41,14 +41,15 @@ NSBundle *tweakBundle = uYouPlusBundle();
 }
 %end
 
+// Restore Notifications Pivot Bar Tab - @arichornlover (Inspired by the YTLite/YouTubePlus version)
 %hook YTIPivotBarRenderer
 - (void)setItemsArray:(NSArray *)itemsArray {
     %orig;
-    [self addNotificationsTab];
+    [self addNotificationsTabToRenderer];
 }
-- (void)addNotificationsTab {
+- (void)addNotificationsTabToRenderer {
     for (YTIPivotBarSupportedRenderers *renderer in self.itemsArray) {
-        if ([renderer.pivotBarItemRenderer.title.runs.firstObject.text isEqualToString:@"Notifications"]) {
+        if ([renderer.pivotBarItemRenderer.title.text isEqualToString:@"Notifications"]) {
             return;
         }
     }
@@ -59,7 +60,7 @@ NSBundle *tweakBundle = uYouPlusBundle();
     navigationEndpoint.browseEndpoint.browseId = @"FEnotifications_inbox";
     notificationsItemRenderer.navigationEndpoint = navigationEndpoint;
     YTIFormattedString *title = [[YTIFormattedString alloc] init];
-    title.runs = @[[[YTIFormattedString_Runs alloc] initWithText:@"Notifications"]];
+    title.text = @"Notifications";
     notificationsItemRenderer.title = title;
     YTIAccessibilitySupportedDatas *accessibility = [[YTIAccessibilitySupportedDatas alloc] init];
     accessibility.accessibilityData.label = @"Notifications";
@@ -82,13 +83,16 @@ NSBundle *tweakBundle = uYouPlusBundle();
 %end
 %hook YTPivotBarItemView
 - (void)buttonTapped {
-    if ([self.navigationButton.accessibilityLabel isEqualToString:@"Notifications"]) {
+    if ([self.hitTarget.rendererAccessibilityLabel isEqualToString:@"Notifications"]) {
         YTICommand *command = [[YTICommand alloc] init];
         command.browseEndpoint.browseId = @"FEnotifications_inbox";
-        [command execute];
+        [self executeCommand:command];
     } else {
         %orig;
     }
+}
+- (void)executeCommand:(YTICommand *)command {
+    NSLog(@"Navigating to: %@", command.browseEndpoint.browseId);
 }
 %end
 
