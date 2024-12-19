@@ -52,18 +52,13 @@ NSBundle *tweakBundle = uYouPlusBundle();
 
         YTIPivotBarItemRenderer *itemBar = [[%c(YTIPivotBarItemRenderer) alloc] init];
         [itemBar setPivotIdentifier:@"FEnotifications_inbox"];
-        
+
         YTIIcon *selectedIcon = [[YTIIcon alloc] init];
         selectedIcon.iconType = NOTIFICATIONS;
-        
-        YTIIcon *unselectedIcon = [[YTIIcon alloc] init];
-        unselectedIcon.iconType = NOTIFICATIONS_NONE;
-        
+
         [itemBar setIcon:selectedIcon];
-        [itemBar setIcon:unselectedIcon];
         
         [itemBar setNavigationEndpoint:command];
-
         YTIFormattedString *formatString = [%c(YTIFormattedString) formattedStringWithString:@"Notifications"];
         [itemBar setTitle:formatString];
 
@@ -75,6 +70,7 @@ NSBundle *tweakBundle = uYouPlusBundle();
     %orig(renderer);
 }
 %end
+
 %hook YTBrowseViewController
 - (void)viewDidLoad {
     %orig;
