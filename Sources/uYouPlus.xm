@@ -42,7 +42,6 @@ NSBundle *tweakBundle = uYouPlusBundle();
 %end
 
 // Restore Notifications Pivot Bar Tab - @arichornlover (Inspired by the YTMusicUltimate version - @Dayanch96)
-/*
 %hook YTPivotBarView
 - (void)setRenderer:(YTIPivotBarRenderer *)renderer {
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kShowNotificationsTab"]) {
@@ -90,7 +89,6 @@ NSBundle *tweakBundle = uYouPlusBundle();
     }
 }
 %end
-*/
 
 // UPDATED VERSION
 // Hide the (Connect / Share / Remix / Thanks / Download / Clip / Save / Report) Buttons under the Video Player - 17.33.2 and up - @PoomSmart (inspired by @arichornlover) - METHOD BROKE Server-Side on May 14th 2024
