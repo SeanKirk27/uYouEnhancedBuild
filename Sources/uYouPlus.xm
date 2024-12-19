@@ -41,37 +41,42 @@ NSBundle *tweakBundle = uYouPlusBundle();
 }
 %end
 
-// Restore Notifications Pivot Bar Tab - @arichornlover (Inspired by the YTMusicUltimate version - @Dayanch96)
 %hook YTPivotBarView
 - (void)setRenderer:(YTIPivotBarRenderer *)renderer {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kShowNotificationsTab"]) {
-        YTIBrowseEndpoint *endPoint = [[%c(YTIBrowseEndpoint) alloc] init];
-        [endPoint setBrowseId:@"FEnotifications_inbox"];
-        YTICommand *command = [[%c(YTICommand) alloc] init];
-        [command setBrowseEndpoint:endPoint];
+    @try {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kShowNotificationsTab"]) {
+            YTIBrowseEndpoint *endPoint = [[%c(YTIBrowseEndpoint) alloc] init];
+            [endPoint setBrowseId:@"FEnotifications_inbox"];
+            YTICommand *command = [[%c(YTICommand) alloc] init];
+            [command setBrowseEndpoint:endPoint];
 
-        YTIPivotBarItemRenderer *itemBar = [[%c(YTIPivotBarItemRenderer) alloc] init];
-        [itemBar setPivotIdentifier:@"FEnotifications_inbox"];
+            YTIPivotBarItemRenderer *itemBar = [[%c(YTIPivotBarItemRenderer) alloc] init];
+            [itemBar setPivotIdentifier:@"FEnotifications_inbox"];
 
-        YTIIcon *selectedIcon = itemBar.icon;
-        if (selectedIcon) {
-            selectedIcon.iconType = NOTIFICATIONS;
+            YTIIcon *selectedIcon = itemBar.icon;
+            if (selectedIcon) {
+                selectedIcon.iconType = NOTIFICATIONS;
+                selectedIcon.iconSize = CGSizeMake(24, 24);
+            }
+
+            YTIIcon *unselectedIcon = [[%c(YTIIcon) alloc] init];
+            if (unselectedIcon) {
+                unselectedIcon.iconType = NOTIFICATIONS_NONE;
+                unselectedIcon.iconSize = CGSizeMake(24, 24);
+            }
+
+            [itemBar setValue:unselectedIcon forKey:@"unselectedIcon"];
+            [itemBar setNavigationEndpoint:command];
+            YTIFormattedString *formatString = [%c(YTIFormattedString) formattedStringWithString:@"Notifications"];
+            [itemBar setTitle:formatString];
+
+            YTIPivotBarSupportedRenderers *barSupport = [[%c(YTIPivotBarSupportedRenderers) alloc] init];
+            [barSupport setPivotBarItemRenderer:itemBar];
+
+            [renderer.itemsArray addObject:barSupport];
         }
-
-        YTIIcon *unselectedIcon = itemBar.icon;
-        if (unselectedIcon) {
-            unselectedIcon.iconType = NOTIFICATIONS_NONE;
-        }
-
-        [itemBar setValue:unselectedIcon forKey:@"unselectedIcon"];     
-        [itemBar setNavigationEndpoint:command];
-        YTIFormattedString *formatString = [%c(YTIFormattedString) formattedStringWithString:@"Notifications"];
-        [itemBar setTitle:formatString];
-
-        YTIPivotBarSupportedRenderers *barSupport = [[%c(YTIPivotBarSupportedRenderers) alloc] init];
-        [barSupport setPivotBarItemRenderer:itemBar];
-
-        [renderer.itemsArray addObject:barSupport];
+    } @catch (NSException *exception) {
+        NSLog(@"Error setting renderer: %@", exception.reason);
     }
     %orig(renderer);
 }
