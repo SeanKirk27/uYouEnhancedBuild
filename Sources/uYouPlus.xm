@@ -52,21 +52,17 @@ NSBundle *tweakBundle = uYouPlusBundle();
 
             YTIPivotBarItemRenderer *itemBar = [[%c(YTIPivotBarItemRenderer) alloc] init];
             [itemBar setPivotIdentifier:@"FEnotifications_inbox"];
+            YTIIcon *icon = [itemBar icon];
+            [icon setIconType:1];
+            [itemBar setNavigationEndpoint:command];
 
-            YTIIcon *selectedIcon = itemBar.icon;
-            if (selectedIcon) {
-                selectedIcon.iconType = NOTIFICATIONS;
-            }
-
-            YTIIcon *unselectedIcon = [[%c(YTIIcon) alloc] init];
-            if (unselectedIcon) {
-                unselectedIcon.iconType = NOTIFICATIONS_NONE;
-            }
-
-            [itemBar setValue:unselectedIcon forKey:@"unselectedIcon"];
             [itemBar setNavigationEndpoint:command];
             YTIFormattedString *formatString = [%c(YTIFormattedString) formattedStringWithString:@"Notifications"];
             [itemBar setTitle:formatString];
+
+            YTAssetLoader *assetLoader = [YTAssetLoader sharedInstance];
+            UIImage *selectedIconImage = [assetLoader loadImageNamed:@"ic_notifications"];
+            UIImage *unselectedIconImage = [assetLoader loadImageNamed:@"yt_outline_bell_24pt"];
 
             YTIPivotBarSupportedRenderers *barSupport = [[%c(YTIPivotBarSupportedRenderers) alloc] init];
             [barSupport setPivotBarItemRenderer:itemBar];
@@ -88,7 +84,8 @@ NSBundle *tweakBundle = uYouPlusBundle();
         if ([navEndpoint.browseEndpoint.browseId isEqualToString:@"FEnotifications_inbox"]) {
             UIViewController *notificationsViewController = [[UIViewController alloc] init];
             [self addChildViewController:notificationsViewController];
-            [notificationsViewController.view setFrame:self.view.bounds];
+            // FIXME: View issues
+            [notificationsViewController.view setFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, self.view.frame.size.height)];
             [self.view addSubview:notificationsViewController.view];
             [self.view endEditing:YES];
             [notificationsViewController didMoveToParentViewController:self];
