@@ -41,7 +41,7 @@ NSBundle *tweakBundle = uYouPlusBundle();
 }
 %end
 
-/*
+// Notifications Tab - @arichornlover & @dayanch96
 %hook YTPivotBarItemViewAccessibilityControl
 - (UIImage *)pivotBarItemIconImageWithIconType:(int)type color:(UIColor *)color useNewIcons:(BOOL)isNew selected:(BOOL)isSelected {
     // Create image
@@ -50,8 +50,6 @@ NSBundle *tweakBundle = uYouPlusBundle();
     return type == 1 ? [al imageNamed:imageName] : %orig;
 }
 %end
-*/
-
 %hook YTPivotBarView
 - (void)setRenderer:(YTIPivotBarRenderer *)renderer {
     @try {
@@ -81,7 +79,6 @@ NSBundle *tweakBundle = uYouPlusBundle();
     %orig(renderer);
 }
 %end
-
 %hook YTBrowseViewController
 - (void)viewDidLoad {
     %orig;
