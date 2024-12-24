@@ -60,11 +60,14 @@ NSBundle *tweakBundle = uYouPlusBundle();
         NSString *unselectedIconPath = [tweakBundle pathForResource:@"notifications_unselected" ofType:@"png" inDirectory:@"UI"];
         UIImage *unselectedIconImage = [UIImage imageWithContentsOfFile:unselectedIconPath];
 
-        YTQTMButton *selectedButton = [YTQTMButton barButtonWithImage:selectedIconImage accessibilityLabel:@"Notifications" accessibilityIdentifier:@"notifications_selected"];
-        YTQTMButton *unselectedButton = [YTQTMButton barButtonWithImage:unselectedIconImage accessibilityLabel:@"Notifications" accessibilityIdentifier:@"notifications_unselected"];
+        YTIIcon *selectedIcon = [[YTIIcon alloc] init];
+        [selectedIcon setImage:selectedIconImage];
 
-        [itemBar setValue:selectedButton.imageView.image forKey:@"icon"];
-        [itemBar setValue:unselectedButton.imageView.image forKey:@"unselectedIcon"];
+        YTIIcon *unselectedIcon = [[YTIIcon alloc] init];
+        [unselectedIcon setImage:unselectedIconImage];
+
+        [itemBar setIcon:selectedIcon];
+        [itemBar setUnselectedIcon:unselectedIcon];
 
         [itemBar setNavigationEndpoint:command];
         YTIFormattedString *formatString = [%c(YTIFormattedString) formattedStringWithString:@"Notifications"];
