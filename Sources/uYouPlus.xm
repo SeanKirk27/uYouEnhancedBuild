@@ -44,8 +44,8 @@ NSBundle *tweakBundle = uYouPlusBundle();
 // Notifications Tab - @arichornlover & @dayanch96
 %group gShowNotificationsTab
 %hook YTQTMButton
-+ (instancetype)barButtonWithImage:(UIImage *)image accessibilityLabel:(NSString *)accessibilityLabel accessibilityIdentifier:(NSString *)accessibilityIdentifier {
-    YTQTMButton *button = [super barButtonWithImage:image accessibilityLabel:accessibilityLabel accessibilityIdentifier:accessibilityIdentifier];
++ (YTQTMButton *)createBarButtonWithImage:(UIImage *)image accessibilityLabel:(NSString *)accessibilityLabel accessibilityIdentifier:(NSString *)accessibilityIdentifier {
+    YTQTMButton *button = [YTQTMButton buttonWithType:UIButtonTypeCustom];
     return button;
 }
 %end
