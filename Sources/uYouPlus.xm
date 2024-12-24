@@ -1892,6 +1892,9 @@ static int contrastMode() {
     if (IS_ENABLED(kHideChipBar)) {
         %init(gHideChipBar);
     }
+    if (IS_ENABLED(kShowNotificationsTab)) {
+        %init(gShowNotificationsTab);
+    }
     if (IS_ENABLED(kPortraitFullscreen)) {
         %init(gPortraitFullscreen);
     }
