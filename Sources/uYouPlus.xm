@@ -42,6 +42,13 @@ NSBundle *tweakBundle = uYouPlusBundle();
 %end
 
 // Notifications Tab - @arichornlover & @dayanch96
+static UIButton *createBarButtonWithImage(UIImage *image, NSString *accessibilityLabel, NSString *identifier) {
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:image forState:UIControlStateNormal];
+    button.accessibilityLabel = accessibilityLabel;
+    button.accessibilityIdentifier = identifier;
+    return button;
+}
 %group gShowNotificationsTab
 %hook YTPivotBarView
 - (void)setRenderer:(YTIPivotBarRenderer *)renderer {
@@ -54,7 +61,6 @@ NSBundle *tweakBundle = uYouPlusBundle();
         YTIPivotBarItemRenderer *itemBar = [[%c(YTIPivotBarItemRenderer) alloc] init];
         [itemBar setPivotIdentifier:@"FEnotifications_inbox"];
 
-        NSBundle *tweakBundle = uYouPlusBundle();
         NSString *selectedIconPath = [tweakBundle pathForResource:@"notifications_selected" ofType:@"png" inDirectory:@"UI"];
         UIImage *selectedIconImage = [UIImage imageWithContentsOfFile:selectedIconPath];
         NSString *unselectedIconPath = [tweakBundle pathForResource:@"notifications_unselected" ofType:@"png" inDirectory:@"UI"];
@@ -63,8 +69,8 @@ NSBundle *tweakBundle = uYouPlusBundle();
         UIButton *selectedButton = createBarButtonWithImage(selectedIconImage, @"Notifications", @"notifications_selected");
         UIButton *unselectedButton = createBarButtonWithImage(unselectedIconImage, @"Notifications", @"notifications_unselected");
 
-        [itemBar setValue:selectedIconView.image forKey:@"icon"];
-        [itemBar setValue:unselectedIconView.image forKey:@"unselectedIcon"];
+        [itemBar setValue:selectedButton.imageView.image forKey:@"icon"];
+        [itemBar setValue:unselectedButton.imageView.image forKey:@"unselectedIcon"];
 
         [itemBar setNavigationEndpoint:command];
         YTIFormattedString *formatString = [%c(YTIFormattedString) formattedStringWithString:@"Notifications"];
@@ -77,7 +83,8 @@ NSBundle *tweakBundle = uYouPlusBundle();
 
         YTBadgedView *badgedView = [[%c(YTBadgedView) alloc] init];
         [badgedView setLabel:@"10" accessibilityLabel:@"unseen items"];
-        [badgedView updateColors]; [badgedView addBorderLayer];
+        [badgedView updateColors]; 
+        [badgedView addBorderLayer];
         [self setValue:badgedView forKey:@"pivotBarIndicator"];
     } @catch (NSException *exception) {
         NSLog(@"Error setting renderer: %@", exception.reason);
