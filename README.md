@@ -310,12 +310,12 @@
 | **YTSpeed** | [Lyvendia](https://github.com/Lyvendia) | 1.0.1 | [✔︎](https://github.com/Lyvendia/YTSpeed) |
 | **Alderis Color Picker** | [HASHBANG Productions](https://github.com/hbang) | 1.2 | [✔︎](https://github.com/hbang/Alderis) |
 | **YTUHD** | [PoomSmart](https://twitter.com/poomsmart) | 1.5.6 | [✔︎](https://github.com/PoomSmart/YTUHD) |
-| **YouLoop** | [bhackel](https://github.com/bhackel) | 1.0.0 | [✔︎](https://github.com/bhackel/YouLoop) |
+| **YouLoop** | [bhackel](https://github.com/bhackel) | 1.1.0 | [✔︎](https://github.com/bhackel/YouLoop) |
 | **YouMute** | [PoomSmart](https://twitter.com/poomsmart) | 1.2.3 | [✔︎](https://github.com/PoomSmart/YouMute) |
 | **YouPiP** | [PoomSmart](https://twitter.com/poomsmart) | 1.9.0 | [✔︎](https://github.com/PoomSmart/YouPiP) |
 | **YouQuality** | [PoomSmart](https://twitter.com/poomsmart) | 1.2.2 | [✔︎](https://github.com/PoomSmart/YouQuality) |
 | **YouSpeed** | [PoomSmart](https://twitter.com/poomsmart) | 1.0.1 | [✔︎](https://github.com/PoomSmart/YouSpeed) |
-| **YouTimeStamp** | [arichornlover](https://github.com/arichornlover) | 1.0.2 | [✔︎](https://github.com/arichornlover/YouTimeStamp) |
+| **YouTimeStamp** | [arichornlover](https://github.com/arichornlover) | 1.1.0 | [✔︎](https://github.com/arichornlover/YouTimeStamp) |
 | **IAmYouTube** | [PoomSmart](https://twitter.com/poomsmart) | 1.3.0 | [✔︎](https://github.com/PoomSmart/IAmYouTube) |
 | **YTABConfig** | [PoomSmart](https://twitter.com/poomsmart) | 1.7.3 | [✔︎](https://github.com/PoomSmart/YTABConfig) |
 | **YTIcons** | [PoomSmart](https://twitter.com/poomsmart) | 1.0.0 | [✔︎](https://github.com/PoomSmart/YTIcons) |
