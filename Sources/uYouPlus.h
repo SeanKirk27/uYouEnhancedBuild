@@ -22,6 +22,7 @@
 #import <YouTubeHeader/YTBadgedView.h>
 #import <YouTubeHeader/YTBrowseViewController.h>
 #import <YouTubeHeader/YTCollectionViewCell.h>
+#import <YouTubeHeader/YTCountView.h>
 #import <YouTubeHeader/YTIButtonRenderer.h>
 #import <YouTubeHeader/YTIBrowseRequest.h>
 #import <YouTubeHeader/YTICompactLinkRenderer.h>
@@ -255,9 +256,6 @@ static NSString *const kGoogleSigninFix = @"googleSigninFix_enabled";
 @end
 
 @interface YTChipCloudCell : UIView
-@end
-
-@interface YTCountView : UIView
 @end
 
 @interface YTPlayabilityResolutionUserActionUIController : NSObject // Skips content warning before playing *some videos - @PoomSmart
