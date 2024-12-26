@@ -19,6 +19,7 @@
 #import <YouTubeHeader/MLPlayerStickySettings.h>
 #import <YouTubeHeader/YTAppDelegate.h>
 #import <YouTubeHeader/YTAssetLoader.h>
+#import <YouTubeHeader/YTBadgedView.h>
 #import <YouTubeHeader/YTBrowseViewController.h>
 #import <YouTubeHeader/YTCollectionViewCell.h>
 #import <YouTubeHeader/YTIButtonRenderer.h>
