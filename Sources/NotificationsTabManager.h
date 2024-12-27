@@ -1,6 +1,6 @@
 #import <UIKit/UIKit.h>
 
-@interface NotificationsTabController : NSObject
+@interface NotificationsTabManager : NSObject
 
 + (instancetype)sharedManager;
 - (void)rearrangeNotificationsTabInPivotBar:(NSMutableArray *)pivotBarItems;
