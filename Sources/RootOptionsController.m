@@ -1,7 +1,7 @@
 #import "RootOptionsController.h"
 #import "ColourOptionsController.h"
 #import "ColourOptionsController2.h"
-#import "uYouPlus.h" 
+#import "uYouPlus.h"
 #import "NotificationsTabManager.h"
 #import <YouTubeHeader/YTBrowseViewController.h>
 #import <YouTubeHeader/YTIPivotBarRenderer.h>
@@ -205,12 +205,16 @@
         }
     }
     if (indexPath.section == 2) {
-        YTBrowseViewController *browseViewController = (YTBrowseViewController *)self.navigationController.topViewController;
-        YTIPivotBarRenderer *pivotBarRenderer = [browseViewController valueForKey:@"pivotBarRenderer"];
-        NSMutableArray *pivotBarItems = [pivotBarRenderer.itemsArray mutableCopy];
-        NotificationsTabManager *notificationsTabManager = [NotificationsTabManager sharedManager];
-        [notificationsTabManager rearrangeNotificationsTabInPivotBar:pivotBarItems];
-        [pivotBarRenderer setItemsArray:pivotBarItems];
+        @try {
+            YTBrowseViewController *browseViewController = (YTBrowseViewController *)self.navigationController.topViewController;
+            YTIPivotBarRenderer *pivotBarRenderer = [browseViewController valueForKey:@"pivotBarRenderer"];
+            NSMutableArray *pivotBarItems = [pivotBarRenderer.itemsArray mutableCopy];
+            NotificationsTabManager *notificationsTabManager = [NotificationsTabManager sharedManager];
+            [notificationsTabManager rearrangeNotificationsTabInPivotBar:pivotBarItems];
+            [pivotBarRenderer setItemsArray:pivotBarItems];
+        } @catch (NSException *exception) {
+            NSLog(@"Error rearranging notifications tab: %@", exception.reason);
+        }
     }
 }
 
