@@ -198,11 +198,9 @@
         }
     }
     if (indexPath.section == 2 && IS_ENABLED(kShowNotificationsTab)) {
-        NotificationsTabController *notificationsTabController = [[NotificationsTabController alloc] init];
-        UINavigationController *notificationsTabControllerView = [[UINavigationController alloc] initWithRootViewController:notificationsTabController];
-        notificationsTabControllerView.modalPresentationStyle = UIModalPresentationFullScreen;
-
-        [self presentViewController:notificationsTabControllerView animated:YES completion:nil];
+        NotificationsTabManager *notificationsTabManager = [NotificationsTabManager sharedManager];
+        NSMutableArray *pivotBarItems =
+        [notificationsTabManager rearrangeNotificationsTabInPivotBar:pivotBarItems];
     }
 }
 
