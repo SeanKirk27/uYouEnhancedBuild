@@ -1,7 +1,7 @@
 #import "RootOptionsController.h"
 #import "ColourOptionsController.h"
 #import "ColourOptionsController2.h"
-#import "NotificationsTabController.h"
+#import "NotificationsTabManager.h"
 
 @interface RootOptionsController ()
 
