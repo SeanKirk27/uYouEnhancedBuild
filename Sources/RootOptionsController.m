@@ -73,7 +73,7 @@
     } else if (section == 1) {
         return 1;
     } else if (section == 2) {
-        return [[NSUserDefaults standardUserDefaults] boolForKey:showNotificationsTab_enabled] ? 1 : 0;
+        return [[NSUserDefaults standardUserDefaults] boolForKey:kShowNotificationsTab] ? 1 : 0;
     }
     return 0;
 }
@@ -197,10 +197,15 @@
             });
         }
     }
-    if (indexPath.section == 2 && IS_ENABLED(kShowNotificationsTab)) {
-        NotificationsTabController *notificationsTabManager = [NotificationsTabController sharedManager];
-        NSMutableArray *pivotBarItems =
+    if (indexPath.section == 2 && [[NSUserDefaults standardUserDefaults] boolForKey:kShowNotificationsTab]) {
+        YTBrowseViewController *browseViewController = (YTBrowseViewController *)[self.navigationController topViewController];
+        YTIPivotBarRenderer *pivotBarRenderer = [browseViewController valueForKey:@"pivotBarRenderer"];
+        NSMutableArray *pivotBarItems = [pivotBarRenderer.itemsArray mutableCopy];
+        NotificationsTabManager *notificationsTabManager = [NotificationsTabManager sharedManager];
         [notificationsTabManager rearrangeNotificationsTabInPivotBar:pivotBarItems];
+        [pivotBarRenderer setItemsArray:pivotBarItems];
+    }
+}
     }
 }
 
