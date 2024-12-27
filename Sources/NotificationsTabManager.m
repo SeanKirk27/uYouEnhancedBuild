@@ -1,6 +1,5 @@
 #import "NotificationsTabManager.h"
 #import "uYouPlus.h"
-#import <YouTubeHeader/YTPivotBarRenderer.h>
 #import <YouTubeHeader/YTIPivotBarItemRenderer.h>
 #import <YouTubeHeader/YTIBrowseEndpoint.h>
 #import <YouTubeHeader/YTICommand.h>
