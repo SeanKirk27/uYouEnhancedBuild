@@ -1,6 +1,7 @@
 #import "RootOptionsController.h"
 #import "ColourOptionsController.h"
 #import "ColourOptionsController2.h"
+#import "NotificationsTabController.h"
 
 @interface RootOptionsController ()
 
@@ -63,11 +64,18 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return (section == 0) ? 2 : 1;
+    if (section == 0) {
+        return 2;
+    } else if (section == 1) {
+        return 1;
+    } else if (section == 2) {
+        return IS_ENABLED(kShowNotificationsTab) ? 1 : 0;
+    }
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -114,6 +122,10 @@
             cell.accessoryView = cache;
             cell.imageView.image = [UIImage systemImageNamed:@"trash"];
         }
+    } else if (indexPath.section == 2) {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.text = @"Rearrange Notifications Tab";
+        cell.imageView.image = [UIImage systemImageNamed:@"bell"];
     }
 
     [self applyColorSchemeForCell:cell];
@@ -184,6 +196,13 @@
                 });
             });
         }
+    }
+    if (indexPath.section == 2 && IS_ENABLED(kShowNotificationsTab)) {
+        NotificationsTabController *notificationsTabController = [[NotificationsTabController alloc] init];
+        UINavigationController *notificationsTabControllerView = [[UINavigationController alloc] initWithRootViewController:notificationsTabController];
+        notificationsTabControllerView.modalPresentationStyle = UIModalPresentationFullScreen;
+
+        [self presentViewController:notificationsTabControllerView animated:YES completion:nil];
     }
 }
 
