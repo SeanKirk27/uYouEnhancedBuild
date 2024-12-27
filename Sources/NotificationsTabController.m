@@ -1,8 +1,9 @@
-#import "NotificationsTabController.h"
+#import "NotificationsTabManager.h"
+#import "uYouPlus.h"
 #import <YouTubeHeader/YTIPivotBarRenderer.h>
 #import <YouTubeHeader/YTIPivotBarSupportedRenderers.h>
 
-@implementation NotificationsTabController
+@implementation NotificationsTabManager
 
 + (instancetype)sharedManager {
     static NotificationsTabManager *sharedManager = nil;
@@ -14,7 +15,7 @@
 }
 
 - (void)rearrangeNotificationsTabInPivotBar:(NSMutableArray *)pivotBarItems {
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:showNotificationsTab_enabled]) {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:kShowNotificationsTab]) {
         return;
     }
 
@@ -35,7 +36,7 @@
         if (libraryIndex != NSNotFound) {
             [pivotBarItems insertObject:notificationsItem atIndex:libraryIndex];
         } else {
-            [pivotBarItems addObject:notificationsItem]; // Fallback
+            [pivotBarItems addObject:notificationsItem]; // Fallback to add at the end
         }
     }
 }
