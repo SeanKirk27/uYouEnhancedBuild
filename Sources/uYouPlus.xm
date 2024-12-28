@@ -124,6 +124,20 @@ static UIButton *createBarButtonWithImage(UIImage *image, NSString *accessibilit
 %end
 %end
 
+// Notifications Tab - uYou Settings Patch
+// This is risky as I am basically inserting it into uYou's Reorder Table settings.
+%hook settingsReorderTable
+- (void)viewDidLayoutSubviews {
+    %orig;
+    NSMutableArray *tabsArray = [self valueForKey:@"tabsArray"];
+    if (![tabsArray containsObject:@"Notifications"]) {
+        NSUInteger index = [tabsArray indexOfObject:@"Subscriptions"] + 1;
+        [tabsArray insertObject:@"Notifications" atIndex:index];
+        [self.tableView reloadData];
+    }
+}
+%end
+
 // UPDATED VERSION
 // Hide the (Connect / Share / Remix / Thanks / Download / Clip / Save / Report) Buttons under the Video Player - 17.33.2 and up - @PoomSmart (inspired by @arichornlover) - METHOD BROKE Server-Side on May 14th 2024
 static BOOL findCell(ASNodeController *nodeController, NSArray <NSString *> *identifiers) {
