@@ -5,6 +5,6 @@
 @property (nonatomic, strong) UINavigationController *navigationController;
 
 + (instancetype)sharedManager;
-- (void)rearrangeNotificationsTab;
+- (void)rearrangeNotificationsTabAtIndex:(NSUInteger)index;
 
 @end
