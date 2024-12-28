@@ -66,11 +66,12 @@ static UIButton *createBarButtonWithImage(UIImage *image, NSString *accessibilit
         NSString *unselectedIconPath = [tweakBundle pathForResource:@"notifications_unselected" ofType:@"png" inDirectory:@"UI"];
         UIImage *unselectedIconImage = [UIImage imageWithContentsOfFile:unselectedIconPath];
 
-        UIButton *selectedButton = createBarButtonWithImage(selectedIconImage, @"Notifications", @"notifications_selected");
-        UIButton *unselectedButton = createBarButtonWithImage(unselectedIconImage, @"Notifications", @"notifications_unselected");
-
-        [itemBar setValue:selectedButton.imageView.image forKey:@"icon"];
-        [itemBar setValue:unselectedButton.imageView.image forKey:@"unselectedIcon"];
+        if (selectedIconImage && unselectedIconImage) {
+            [itemBar setValue:selectedIconImage forKey:@"icon"];
+            [itemBar setValue:unselectedIconImage forKey:@"unselectedIcon"];
+        } else {
+            NSLog(@"Error: Icon images couldn't be loaded.");
+        }
 
         [itemBar setNavigationEndpoint:command];
         YTIFormattedString *formatString = [%c(YTIFormattedString) formattedStringWithString:@"Notifications"];
@@ -79,18 +80,23 @@ static UIButton *createBarButtonWithImage(UIImage *image, NSString *accessibilit
         YTIPivotBarSupportedRenderers *barSupport = [[%c(YTIPivotBarSupportedRenderers) alloc] init];
         [barSupport setPivotBarItemRenderer:itemBar];
 
-        [renderer.itemsArray addObject:barSupport];
-/*
-        YTBadgedView *badgedView = [[%c(YTBadgedView) alloc] init];
-        [badgedView setLabel:@"10" accessibilityLabel:@"unseen items"];
-        [badgedView updateColors]; 
-        [badgedView addBorderLayer];
-        [self setValue:badgedView forKey:@"pivotBarIndicator"];
+        NSMutableArray *itemsArray = [renderer.itemsArray mutableCopy];
+        NSInteger libraryTabIndex = -1;
+        
+        for (NSInteger i = 0; i < itemsArray.count; i++) {
+            YTIPivotBarItemRenderer *pivotBarItemRenderer = itemsArray[i].pivotBarItemRenderer;
+            if ([pivotBarItemRenderer.pivotIdentifier isEqualToString:@"FElibrary"]) {
+                libraryTabIndex = i;
+                break;
+            }
+        }
 
-        YTCountView *countView = [[%c(YTCountView) alloc] init];
-        YTIUnseenContentCountRenderer *countRenderer = [[%c(YTIUnseenContentCountRenderer) alloc] init];
-        [countView setRenderer:countRenderer];
-*/
+        if (libraryTabIndex != -1) {
+            [itemsArray insertObject:barSupport atIndex:libraryTabIndex];
+            renderer.itemsArray = itemsArray;
+        } else {
+            [renderer.itemsArray addObject:barSupport];
+        }
     } @catch (NSException *exception) {
         NSLog(@"Error setting renderer: %@", exception.reason);
     }
