@@ -5,6 +5,9 @@
 #import <YouTubeHeader/YTICommand.h>
 #import <YouTubeHeader/YTIIcon.h>
 #import <YouTubeHeader/YTIFormattedString.h>
+#import <YouTubeHeader/YTBrowseViewController.h>
+#import <YouTubeHeader/YTPivotBarView.h>
+#import <YouTubeHeader/YTPivotBarItemView.h>
 
 @implementation NotificationsTabManager
 
