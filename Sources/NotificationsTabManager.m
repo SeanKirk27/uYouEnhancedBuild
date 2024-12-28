@@ -20,7 +20,7 @@
     return sharedManager;
 }
 
-- (void)rearrangeNotificationsTab {
+- (void)rearrangeNotificationsTabAtIndex:(NSUInteger)index {
     @try {
         YTBrowseViewController *browseViewController = (YTBrowseViewController *)self.navigationController.topViewController;
         YTPivotBarView *pivotBarView = [browseViewController valueForKey:@"pivotBarView"];
@@ -34,7 +34,7 @@
         }
         if (notificationsItem) {
             [itemViews removeObject:notificationsItem];
-            [itemViews insertObject:notificationsItem atIndex:4];
+            [itemViews insertObject:notificationsItem atIndex:index];
             [pivotBarView setValue:itemViews forKey:@"itemViews"];
         }
     } @catch (NSException *exception) {
