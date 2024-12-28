@@ -137,6 +137,14 @@ static UIButton *createBarButtonWithImage(UIImage *image, NSString *accessibilit
     }
 }
 %end
+%hook UITableViewCell // just in case
+- (void)layoutSubviews {
+    %orig;
+    if ([self.textLabel.text isEqualToString:@"Notifications"]) {
+        self.imageView.image = [UIImage imageNamed:@"notifications_icon"];
+    }
+}
+%end
 
 // UPDATED VERSION
 // Hide the (Connect / Share / Remix / Thanks / Download / Clip / Save / Report) Buttons under the Video Player - 17.33.2 and up - @PoomSmart (inspired by @arichornlover) - METHOD BROKE Server-Side on May 14th 2024
