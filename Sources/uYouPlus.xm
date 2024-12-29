@@ -81,22 +81,12 @@ static UIButton *createBarButtonWithImage(UIImage *image, NSString *accessibilit
         [barSupport setPivotBarItemRenderer:itemBar];
 
         NSMutableArray *itemsArray = [renderer.itemsArray mutableCopy];
-        NSInteger libraryTabIndex = -1;
-        
-        for (NSInteger i = 0; i < itemsArray.count; i++) {
-            YTIPivotBarItemRenderer *pivotBarItemRenderer = itemsArray[i].pivotBarItemRenderer;
-            if ([pivotBarItemRenderer.pivotIdentifier isEqualToString:@"FElibrary"]) {
-                libraryTabIndex = i;
-                break;
-            }
-        }
-
-        if (libraryTabIndex != -1) {
-            [itemsArray insertObject:barSupport atIndex:libraryTabIndex];
-            renderer.itemsArray = itemsArray;
+        if (itemsArray.count >= 4) {
+            [itemsArray insertObject:barSupport atIndex:4];
         } else {
-            [renderer.itemsArray addObject:barSupport];
+            [itemsArray addObject:barSupport];
         }
+        renderer.itemsArray = itemsArray;
     } @catch (NSException *exception) {
         NSLog(@"Error setting renderer: %@", exception.reason);
     }
@@ -122,8 +112,6 @@ static UIButton *createBarButtonWithImage(UIImage *image, NSString *accessibilit
     }
 }
 %end
-%end
-
 // Notifications Tab - uYou Settings Patch
 // This is risky as I am basically inserting it into uYou's Reorder Table settings.
 %hook settingsReorderTable
@@ -131,7 +119,7 @@ static UIButton *createBarButtonWithImage(UIImage *image, NSString *accessibilit
     %orig;
     NSMutableArray *tabsArray = [self valueForKey:@"tabsArray"];
     if (![tabsArray containsObject:@"Notifications"]) {
-        NSUInteger index = [tabsArray indexOfObject:@"Subscriptions"] + 1;
+        NSUInteger index = 4;
         [tabsArray insertObject:@"Notifications" atIndex:index];
         [self.tableView reloadData];
     }
@@ -141,9 +129,10 @@ static UIButton *createBarButtonWithImage(UIImage *image, NSString *accessibilit
 - (void)layoutSubviews {
     %orig;
     if ([self.textLabel.text isEqualToString:@"Notifications"]) {
-        self.imageView.image = [UIImage imageNamed:@"notifications_icon"];
+        self.imageView.image = [UIImage imageNamed:@"notifications_selected"];
     }
 }
+%end
 %end
 
 // UPDATED VERSION
