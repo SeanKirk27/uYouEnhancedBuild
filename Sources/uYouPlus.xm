@@ -42,13 +42,6 @@ NSBundle *tweakBundle = uYouPlusBundle();
 %end
 
 // Notifications Tab - @arichornlover & @dayanch96
-static UIButton *createBarButtonWithImage(UIImage *image, NSString *accessibilityLabel, NSString *identifier) {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:image forState:UIControlStateNormal];
-    button.accessibilityLabel = accessibilityLabel;
-    button.accessibilityIdentifier = identifier;
-    return button;
-}
 %group gShowNotificationsTab
 %hook YTPivotBarView
 - (void)setRenderer:(YTIPivotBarRenderer *)renderer {
